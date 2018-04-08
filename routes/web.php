@@ -17,3 +17,7 @@ Route::get('/', function () {
 
 Route::get('signal', 'SignalController@listup');
 Route::post('signal', 'SignalController@storeSignal');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Signal;
+use Auth;
 
 class SignalController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
     }
 
     public function listup()
     {
+        if( Auth::user()->name != "yukariko")
+            return abort(404);
         return view('signal', ['signals' => Signal::all()]);
     }
 
