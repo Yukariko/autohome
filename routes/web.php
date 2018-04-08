@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('signal', 'SignalController@listup');
+Route::post('signal', 'SignalController@storeSignal');
