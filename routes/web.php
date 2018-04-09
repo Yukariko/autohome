@@ -17,7 +17,9 @@ Route::get('/', function () {
 
 Route::get('signal', 'SignalController@listup');
 Route::post('signal', 'SignalController@storeSignal');
-
+Route::get('log', 'LogController@listup');
+Route::get('log/{id}', 'LogController@listup');
+Route::post('log', 'LogController@storeLog');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
