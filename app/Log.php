@@ -26,7 +26,7 @@ class Log extends Model
     {
         if($id == 0)
             return $query->get();
-        return $query->where('signal_id', $id)->get();
+        return $query->where('signal_id', $id);
     }
 
 }

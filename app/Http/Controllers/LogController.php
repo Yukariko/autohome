@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\Linechart;
 use Illuminate\Http\Request;
 use App\Signal;
 use App\Log;
@@ -23,9 +24,28 @@ class LogController extends Controller
         {
             $signalList = array_add($signalList, $signal->id, $signal->name);
         }
+
+        $logs = Log::getById($id)->take(180)->get(); //take(10);
+        $huDataset = [];
+        $tempDataset = [];
+        $labels = [];
+        foreach($logs as $log)
+        {
+            $data = explode(":", $log->value);
+            //array_push($huDataset, $log->id - 1000);
+            array_push($huDataset, $data[0]);
+            array_push($tempDataset, $data[1]);
+            array_push($labels, "");
+        }
+
+        $chart = new Linechart;
+        $chart->dataset('Humidity', 'line', $huDataset)->color('#00ff00');
+        $chart->dataset('Temperature', 'line', $tempDataset)->color('#ff0000');
+        $chart->labels($labels);
         return view('log', [
             'signals' => $signalList,
-            'logs' => Log::getById($id)
+            'logs' => $logs,
+            'chart' => $chart
         ]);
     }
 
